@@ -8,27 +8,33 @@ The easiest way to get this project up and running is through the use of docker 
 
 ### Minimum requirements
 
-You need to have PHP >= 8.2
+You need to have PHP >= 8.1
 
 ### Using Docker
 
-If you have docker installed, you need to start the docker engine, then,
+If you have docker installed, you need to start the docker engine, then, from the project folder
 
 - Run Composer install
-- Then, you may launch open the project folder on a terminal and run the command `./vendor/bin/sail up`.
+- Next, copy the environment variables using the command `cp .env.example .env`
+- Next, run the command `./vendor/bin/sail up`.
+- Run the migrations `./vendor/bin/sail artisan migrate`.
 
-This will launch all required services. The docker images that will be pulled are `php 8.2`, `pgsql` and `redis`.
+The app port has been bound to 8084 to avoid clashing with the port 80 on your machine which may already be in use. Hence, your localhost base url will be at `localhost:8084/api`.
 
-### Manual Setup
+The `./vendor/bin/sail up` command will launch all required services. The docker images that will be pulled are `php 8.2`, `pgsql` and `redis`.
+
+Once you've completed this you can skip the `Manual Setup` and go straight down to the `API Usage`.
+
+### Manual Setup (Without Docker)
 
 To set this up manually, you need to have the following on your device locally.
 
-- PHP version - 8.2
+- PHP version >= 8.2
 - Database - PostgreSQL 
 - In-memory storage - Redis
 - Laravel version - 9.x
 
-If you cannot install Redis locally, you can change your `CACHE_DRIVER` environment variable to `file`.
+If you cannot install Redis locally, you can change your `CACHE_DRIVER` environment variable to `file`. However, it is recommended to use Redis for better scalability.
 
 After pulling the project from Github, you should do the following.
 
