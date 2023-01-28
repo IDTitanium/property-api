@@ -6,11 +6,16 @@ This API allows a user to be able to create and retrieve a list of properties in
 
 The easiest way to get this project up and running is through the use of docker but you could also set this up manually.
 
+### Minimum requirements
+
+You need to have PHP >= 8.2
+
 ### Using Docker
 
-If you have docker installed, you need to start the docker engine.
+If you have docker installed, you need to start the docker engine, then,
 
-Then, you may launch open the project folder on a terminal and run the command `./vendor/bin/sail up`.
+- Run Composer install
+- Then, you may launch open the project folder on a terminal and run the command `./vendor/bin/sail up`.
 
 This will launch all required services. The docker images that will be pulled are `php 8.2`, `pgsql` and `redis`.
 
