@@ -2,11 +2,17 @@
 
 namespace App\Exceptions;
 
+use App\Traits\SendApiResponse;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\ValidationException;
 use Throwable;
 
 class Handler extends ExceptionHandler
 {
+
+    use SendApiResponse;
     /**
      * A list of exception types with their corresponding custom log levels.
      *
@@ -44,7 +50,16 @@ class Handler extends ExceptionHandler
     public function register()
     {
         $this->reportable(function (Throwable $e) {
-            //
+            Log::error('Application has thrown an exception', [$e]);
+        });
+
+        $this->renderable(function (ValidationException $e) {
+            return $this->sendApiResponse("Validation error", Response::HTTP_UNPROCESSABLE_ENTITY, $e->errors());
+        });
+
+        $this->renderable(function (Throwable $e) {
+            return $this->sendApiResponse("An error has occured.", Response::HTTP_INTERNAL_SERVER_ERROR);
         });
     }
+
 }
