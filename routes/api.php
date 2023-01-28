@@ -24,7 +24,7 @@ Route::get('/', function () {
     );
 });
 
-Route::prefix('property')->group(function () {
+Route::prefix('properties')->group(function () {
     Route::post('', [PropertyController::class, 'store']);
     Route::get('', [PropertyController::class, 'index']);
     Route::get('/sample-csv', [PropertyController::class, 'downloadSampleCsv']);

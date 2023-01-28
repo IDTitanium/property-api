@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Exceptions\CustomException;
 use App\Models\Property;
+use Illuminate\Support\Facades\Cache;
 
 class PropertyRepository
 {
@@ -17,7 +18,10 @@ class PropertyRepository
         $pageLength = (int) request()->page_length;
         $pageLength = $pageLength > 0 ? $pageLength : static::DEFAULT_PAGINATION;
 
-        return Property::paginate($pageLength);
+        return Cache::tags([Property::cacheTag()])->remember(Property::cacheKey(), Property::cacheTTL(),
+                function() use ($pageLength) {
+                    return Property::paginate($pageLength);
+                });
     }
 
     /**

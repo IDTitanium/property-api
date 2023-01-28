@@ -7,6 +7,7 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -55,6 +56,10 @@ class Handler extends ExceptionHandler
 
         $this->renderable(function (ValidationException $e) {
             return $this->sendApiResponse("Validation error", Response::HTTP_UNPROCESSABLE_ENTITY, $e->errors());
+        });
+
+        $this->renderable(function (NotFoundHttpException $e) {
+            return $this->sendApiResponse("Route not found", Response::HTTP_NOT_FOUND);
         });
 
         $this->renderable(function (Throwable $e) {
