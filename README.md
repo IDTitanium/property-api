@@ -14,7 +14,7 @@ You need to have PHP >= 8.1
 
 If you have docker installed, you need to start the docker engine, then, from the project folder
 
-- Run Composer install
+- Run `composer install`
 - Next, copy the environment variables using the command `cp .env.example .env`
 - Next, run the command `./vendor/bin/sail up`.
 - Run the migrations `./vendor/bin/sail artisan migrate`.
@@ -180,3 +180,10 @@ Example response body
     }
 }
 ```
+
+## Testing
+
+To run the tests in this project, you can run the command.
+
+- With docker `./vendor/bin/sail artisan test` 
+- Without docker `php artisan test`
