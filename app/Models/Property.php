@@ -24,8 +24,8 @@ class Property extends Model
         });
     }
 
-    public static function cacheKey() {
-        return 'properties-cache-'.request()->page;
+    public static function cacheKey($pageLength) {
+        return 'properties-cache-'.request()->page ?? 1 . "-{$pageLength}";
     }
 
     public static function cacheTTL() {

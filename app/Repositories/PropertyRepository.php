@@ -18,7 +18,7 @@ class PropertyRepository
         $pageLength = (int) request()->page_length;
         $pageLength = $pageLength > 0 ? $pageLength : static::DEFAULT_PAGINATION;
 
-        return Cache::tags([Property::cacheTag()])->remember(Property::cacheKey(), Property::cacheTTL(),
+        return Cache::tags([Property::cacheTag()])->remember(Property::cacheKey($pageLength), Property::cacheTTL(),
                 function() use ($pageLength) {
                     return Property::paginate($pageLength);
                 });
