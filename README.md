@@ -82,6 +82,8 @@ Example request body
 
 `properties - [file] properties.csv`
 
+The above is expected to be a form data with the key `properties` and the value, a file upload.
+
 Example response body
 ```
 {
@@ -135,14 +137,6 @@ Example response body
                 "postcode": "1234",
                 "created_at": "2023-01-27T17:07:48.000000Z",
                 "updated_at": "2023-01-27T17:07:48.000000Z"
-            },
-            {
-                "id": 5,
-                "address_line_1": "24",
-                "address_line_2": "Morrybound Street",
-                "postcode": "1234",
-                "created_at": "2023-01-27T17:12:12.000000Z",
-                "updated_at": "2023-01-27T17:12:12.000000Z"
             }
         ],
         "first_page_url": "http://localhost/api/properties?page=1",
@@ -170,8 +164,8 @@ Example response body
         "path": "http://localhost/api/properties",
         "per_page": 20,
         "prev_page_url": null,
-        "to": 5,
-        "total": 5
+        "to": 4,
+        "total": 4
     }
 }
 ```
