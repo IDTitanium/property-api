@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\NewPropertyUpdateEvent;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
@@ -19,7 +20,7 @@ class Property extends Model
      */
     protected static function booted()
     {
-        static::created(function ($user) {
+        static::created(function ($model) {
             static::invalidateCache();
         });
     }
@@ -38,5 +39,9 @@ class Property extends Model
 
     public static function invalidateCache() {
         Cache::tags([static::cacheTag()])->flush();
+    }
+
+    public static function broadcastNewPropertyUpdate($model) {
+        event(new NewPropertyUpdateEvent($model));
     }
 }

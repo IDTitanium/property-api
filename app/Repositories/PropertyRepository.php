@@ -53,12 +53,16 @@ class PropertyRepository
         if (isset($requestData['address'])) {
             $requestData = $requestData['address'];
         }
-        return Property::firstOrCreate(
+        $property = Property::firstOrCreate(
             [
                 'address_line_1' => $requestData['line_1'],
                 'address_line_2' => $requestData['line_2'],
                 'postcode' => $requestData['postcode']
             ]
         );
+
+        Property::broadcastNewPropertyUpdate($property);
+
+        return $property;
     }
 }
